@@ -1,1 +1,62 @@
-<p>category-operations works!</p>
+<div class="w-full text-center mb-4">
+  <h2 class="text-2xl font-bold">Kategori Yönetimi</h2>
+</div>
+
+<div class="flex flex-row items-stretch justify-center gap-20">
+  <!-- Ekleme Formu -->
+  <div class="flex flex-col gap-2 w-80">
+    <label for="name">Kategori Adı</label>
+    <input
+      type="text"
+      id="name"
+      class="p-2 rounded-md border border-gray-300"
+      [(ngModel)]="createCategoryRequestModel().name"
+    />
+    <button class="bg-blue-500 text-white p-2 rounded-md" (click)="createCategory()">Kaydet</button>
+  </div>
+
+  <!-- Dikey Ayraç -->
+  <div class="hidden md:flex items-stretch">
+    <div class="w-px bg-[#222631] mx-4"></div>
+  </div>
+
+  <!-- Güncelleme Formu -->
+  <div class="flex flex-col gap-2 w-80">
+    <label for="name">Kategori Adı</label>
+    <input
+      type="text"
+      id="name"
+      class="p-2 rounded-md border border-gray-300"
+      [(ngModel)]="editCategoryRequestModel().name"
+    />
+    <button class="bg-blue-500 text-white p-2 rounded-md" (click)="updateCategory()">Kaydet</button>
+  </div>
+</div>
+<hr class="my-4">
+<div >
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Kategori Adı</th>
+                <th>Oluşturulma Tarihi</th>
+                <th>Güncellenme Tarihi</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (category of categories()?.data; track category.id) {
+                <tr>
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.name }}</td>
+                    <td>{{ category.createdDate | date:'dd.MM.yyyy HH:mm' }}</td>
+                    <td>{{ category.updatedDate | date:'dd.MM.yyyy HH:mm' }}</td>
+                    <td>
+                        <button class="bg-blue-500 text-white p-2 rounded-md" (click)="editCategory(category.id)">Düzenle</button>
+                        <button class="bg-red-500 text-white p-2 rounded-md" (click)="deleteCategory(category.id)">Sil</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

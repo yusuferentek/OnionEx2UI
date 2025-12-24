@@ -1,5 +1,5 @@
 export const apiConfig = {
-  baseUrl: 'http://localhost:7121/api',
+  baseUrl: 'https://localhost:7121/api',
   endpoints: {
     author: 'Author',
     book: 'Book',
