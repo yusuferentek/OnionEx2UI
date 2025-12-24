@@ -12,7 +12,11 @@
       class="p-2 rounded-md border border-gray-300"
       [(ngModel)]="createCategoryRequestModel().name"
     />
-    <button class="bg-blue-500 text-white p-2 rounded-md" (click)="createCategory()">Kaydet</button>
+    <div class="flex flex-row gap-2">
+      <button class="bg-blue-500 text-white p-2 rounded-md" (click)="createCategory()">
+        Kaydet
+      </button>
+    </div>
   </div>
 
   <!-- Dikey Ayraç -->
@@ -29,34 +33,46 @@
       class="p-2 rounded-md border border-gray-300"
       [(ngModel)]="editCategoryRequestModel().name"
     />
-    <button class="bg-blue-500 text-white p-2 rounded-md" (click)="updateCategory()">Kaydet</button>
+    <div class="flex flex-row gap-2">
+      <button class="bg-blue-500 text-white p-2 rounded-md" (click)="updateCategory()">
+        Kaydet
+      </button>
+      <button class="bg-red-500 text-white p-2 rounded-md" (click)="cancelEdit()">İptal</button>
+    </div>
   </div>
 </div>
-<hr class="my-4">
-<div >
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Kategori Adı</th>
-                <th>Oluşturulma Tarihi</th>
-                <th>Güncellenme Tarihi</th>
-                <th>İşlemler</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (category of categories()?.data; track category.id) {
-                <tr>
-                    <td>{{ category.id }}</td>
-                    <td>{{ category.name }}</td>
-                    <td>{{ category.createdDate | date:'dd.MM.yyyy HH:mm' }}</td>
-                    <td>{{ category.updatedDate | date:'dd.MM.yyyy HH:mm' }}</td>
-                    <td>
-                        <button class="bg-blue-500 text-white p-2 rounded-md" (click)="editCategory(category.id)">Düzenle</button>
-                        <button class="bg-red-500 text-white p-2 rounded-md" (click)="deleteCategory(category.id)">Sil</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<hr class="my-4" />
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Kategori Adı</th>
+        <th>Oluşturulma Tarihi</th>
+        <th>Güncellenme Tarihi</th>
+        <th>İşlemler</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (category of categories()?.data; track category.id) {
+      <tr>
+        <td>{{ category.id }}</td>
+        <td>{{ category.name }}</td>
+        <td>{{ category.createdDate | date : 'dd.MM.yyyy HH:mm' }}</td>
+        <td>{{ category.updatedDate | date : 'dd.MM.yyyy HH:mm' }}</td>
+        <td>
+          <button class="bg-blue-500 text-white p-2 rounded-md" (click)="editCategory(category.id)">
+            Düzenle
+          </button>
+          <button
+            class="bg-red-500 text-white p-2 rounded-md"
+            (click)="deleteCategory(category.id)"
+          >
+            Sil
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
 </div>

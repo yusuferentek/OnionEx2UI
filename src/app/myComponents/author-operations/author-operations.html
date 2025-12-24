@@ -1,1 +1,87 @@
-<p>author-operations works!</p>
+<div class="w-full text-center mb-4">
+  <h2 class="text-2xl font-bold">Yazar Yönetimi</h2>
+</div>
+
+<div class="flex flex-row items-stretch justify-center gap-20">
+  <!-- Ekleme Formu -->
+  <div class="flex flex-col gap-2 w-80">
+    <label for="name">Yazar Adı</label>
+    <input
+      type="text"
+      id="name"
+      class="p-2 rounded-md border border-gray-300"
+      [(ngModel)]="createAuthorRequestModel().name"
+    />
+    <label for="surname">Yazar Soyadı</label>
+    <input
+      type="text"
+      id="surname"
+      class="p-2 rounded-md border border-gray-300"
+      [(ngModel)]="createAuthorRequestModel().surname"
+    />
+    <div class="flex flex-row gap-2">
+      <button class="bg-blue-500 text-white p-2 rounded-md" (click)="createAuthor()">Kaydet</button>
+    </div>
+  </div>
+
+  <!-- Dikey Ayraç -->
+  <div class="hidden md:flex items-stretch">
+    <div class="w-px bg-[#222631] mx-4"></div>
+  </div>
+
+  <!-- Güncelleme Formu -->
+  <div class="flex flex-col gap-2 w-80">
+    <label for="name">Yazar Adı</label>
+    <input
+      type="text"
+      id="name"
+      class="p-2 rounded-md border border-gray-300"
+      [(ngModel)]="editAuthorRequestModel().name"
+    />
+    <label for="surname">Yazar Soyadı</label>
+    <input
+      type="text"
+      id="surname"
+      class="p-2 rounded-md border border-gray-300"
+      [(ngModel)]="editAuthorRequestModel().surname"
+    />
+    <div class="flex flex-row gap-2">
+      <button class="bg-blue-500 text-white p-2 rounded-md" (click)="updateAuthor()">Kaydet</button>
+      <button class="bg-red-500 text-white p-2 rounded-md" (click)="cancelEdit()">İptal</button>
+    </div>
+  </div>
+</div>
+<hr class="my-4" />
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Yazar Adı</th>
+        <th>Yazar Soyadı</th>
+        <th>Oluşturulma Tarihi</th>
+        <th>Güncellenme Tarihi</th>
+        <th>İşlemler</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (author of authors()?.data; track author.id) {
+      <tr>
+        <td>{{ author.id }}</td>
+        <td>{{ author.name }}</td>
+        <td>{{ author.surname }}</td>
+        <td>{{ author.createdDate | date : 'dd.MM.yyyy HH:mm' }}</td>
+        <td>{{ author.updatedDate | date : 'dd.MM.yyyy HH:mm' }}</td>
+        <td>
+          <button class="bg-blue-500 text-white p-2 rounded-md" (click)="editAuthor(author.id)">
+            Düzenle
+          </button>
+          <button class="bg-red-500 text-white p-2 rounded-md" (click)="deleteAuthor(author.id)">
+            Sil
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

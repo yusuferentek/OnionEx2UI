@@ -15,7 +15,9 @@ export class CategoryOperations {
   private categoryApi = inject(CategoryApi);
 
   categories = signal<CategoryResponseModel | null>(null);
-  createCategoryRequestModel = signal<CreateCategoryRequestModel>(new CreateCategoryRequestModel(''));
+  createCategoryRequestModel = signal<CreateCategoryRequestModel>(
+    new CreateCategoryRequestModel('')
+  );
   async ngOnInit() {
     const categories = await this.getCategories();
     this.categories.set(categories);
@@ -27,42 +29,46 @@ export class CategoryOperations {
   async createCategory() {
     console.log(this.createCategoryRequestModel());
     const response = await this.categoryApi.Create(this.createCategoryRequestModel());
-    if(response.isSuccess) {
+    if (response.isSuccess) {
       this.createCategoryRequestModel.set(new CreateCategoryRequestModel(''));
       const categories = await this.getCategories();
       this.categories.set(categories);
-    }else{
+    } else {
       alert(response.message);
       this.createCategoryRequestModel.set(new CreateCategoryRequestModel(''));
     }
   }
-
 
   async deleteCategory(id: number) {
     const response = await this.categoryApi.Delete(id);
-    if(response.isSuccess) {
+    if (response.isSuccess) {
       const categories = await this.getCategories();
       this.categories.set(categories);
-    }else{
+    } else {
       alert(response.message);
     }
   }
 
-  editCategoryRequestModel = signal<UpdateCategoryRequestModel>(new UpdateCategoryRequestModel(0, ''));
+  editCategoryRequestModel = signal<UpdateCategoryRequestModel>(
+    new UpdateCategoryRequestModel(0, '')
+  );
   async editCategory(id: number) {
-    const category = this.categories()?.data.find(c => c.id === id);
-    if(category) {
+    const category = this.categories()?.data.find((c) => c.id === id);
+    if (category) {
       this.editCategoryRequestModel.set(new UpdateCategoryRequestModel(category.id, category.name));
     }
   }
 
   async updateCategory() {
     const response = await this.categoryApi.Update(this.editCategoryRequestModel());
-    if(response.isSuccess) {
+    if (response.isSuccess) {
       const categories = await this.getCategories();
       this.categories.set(categories);
-    }else{
+    } else {
       alert(response.message);
     }
+  }
+  async cancelEdit() {
+    this.editCategoryRequestModel.set(new UpdateCategoryRequestModel(0, ''));
   }
 }
